@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    padding: 0.5em;
+    background: #98D9C2;
+    color: black;
+}
+header h1 {
+    line-height: 1.5em;
+}
+hr {
+    height: 4px;
+    border: none;
+    background-color: #4FA887;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.conteudo {
+    padding: 3em;
+}
+
+footer {
+    height: auto;
+    background: #333;
+    color: white;
+    padding: 0.5em;
+    margin-top: auto;
+}
+
+footer p {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+}
+
+.socials {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.localizacao {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.localizacao li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px ;
+}
+.localizacao a {
+    text-decoration: none;
+    color: #fff;
+}
+.localizacao a:hover {
+    transition: 300ms;
+    color: aquamarine;
+}
+
+.socials li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px ;
+}
+.socials a {
+    text-decoration: none;
+    color: #fff;
+}
+.socials a:hover {
+    transition: 300ms;
+    color: aquamarine;
+}
+
+#logo-complt {
+    display: flex;
+    flex-direction: row;
+}
+
+#logo-site {
+    padding-right: 10px;
+    width: 2.5%;
+}
