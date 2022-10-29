@@ -1,6 +1,46 @@
 const STORAGE_KEY = 'DEVinHouse';
 let dados = []
 
+let operacao = [
+    {
+        id: 1,
+        nome: "Saque"
+    },   
+    {
+        id: 2,
+        nome: "Depósito"
+    }, 
+    {
+        id: 3,
+        nome: "Consulta saldo"
+    }
+]
+
+function criandoCategorias() {
+    const resultado = document.getElementById('category');
+    operacao.forEach(function (entCategoria) {
+        const opcao = document.createElement('option');
+        opcao.innerText = entCategoria.nome;
+        opcao.value = entCategoria.id;
+        resultado.appendChild(opcao);
+    });
+}
+
+function desabilitaValor() {
+    let res = document.getElementById('category').value;
+    if (res === '3' || res === 'Selecione a operação'){
+        document.getElementById("valor").disabled = true;
+    } else {
+        document.getElementById("valor").disabled = false;
+    }
+}
+
+
+function Redirect()
+{
+    window.location="/operacoes.html";
+}
+
 function validaSenha(evento){
     let retornoSenha = false;
     if (evento.target.senha.value != evento.target.senha2.value){
@@ -11,6 +51,24 @@ function validaSenha(evento){
     }
     return retornoSenha;
 }
+
+function validandoNumeros(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    console.log(charCode);
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+  return true;
+}
+
+function validandoValores(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    console.log(charCode);
+    if (charCode != 44 && charCode != 45 && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+  return true;
+}
+
 function validaNome(evento){
     let retornoNome = false;
     let nome = evento.target.name.value;
@@ -56,6 +114,8 @@ function getDados(evento) {
         dados.push(dadosReal);
         salvarDadosLocalStorage(dados)
         alert(`Sua conta foi criado com sucesso! Número da conta: ${dadosReal.conta}`)
+        alert("Redirecionado você para a página de operações");
+        setTimeout('Redirect()', 2000);
     } else {
         evento.preventDefault();
     }
@@ -66,3 +126,7 @@ function getDados(evento) {
 const formulario = document.getElementById('form-cadastro');
 formulario.addEventListener('submit', getDados);
 console.log(dados)
+
+document.body.onload = criandoCategorias;
+
+console.log(document.getElementById("category"))

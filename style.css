@@ -26,6 +26,10 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+body h2 {
+    margin-bottom: 20px;
+}
 footer {
     height: auto;
     background: #333;
@@ -60,6 +64,12 @@ footer p {
     width: 300px;
     margin: auto;
 }
+.form select{
+    margin-bottom: 10px;
+    /* align-self:flex-start; */
+    align-self: center;
+}
+
 .form label {
     margin-bottom:5px;
 }
@@ -147,6 +157,14 @@ footer p {
 }
 
 .input {
+    border: 1px solid #3c4048;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    height: 35px;
+    padding: 5px;
+}
+
+.category {
     border: 1px solid #3c4048;
     border-radius: 5px;
     background-color: whitesmoke;

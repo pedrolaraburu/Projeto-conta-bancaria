@@ -20,19 +20,24 @@
 <hr>
 <body>
     <div class="conteudo">
-        <h2>Cadastrando sua conta</h2>
+        <h2>Operações</h2>
         <form class="form" id="form-cadastro">
-            <input class="input" type="text" placeholder="Digite seu nome aqui" id="name" required>
-            <input onkeypress="return validandoNumeros(event);" class="input" type="text" placeholder="CPF" id="cpf" minlength="11" maxlength="11" required>
-            <input onkeypress="return validandoNumeros(event);" class="input" type="text" id="phone" placeholder="Celular" minlength="11" maxlength="11" required>
+            <!-- <input class="input" type="text" placeholder="Digite seu nome aqui" id="name" required>
+            <input class="input" type="text" placeholder="CPF" id="cpf" minlength="11" maxlength="11" required>
+            <input class="input" type="tel" id="phone" placeholder="Celular" minlength="11" maxlength="11" required>
+
+            <label for="senha">Confirmação da senha:</label>
+            <input class="input" type="password" placeholder="" id="senha2" required> -->
+            <select onclick="desabilitaValor()"class="input" name="category" id="category" required>
+                <option>Selecione a operação</option>
+            </select>
+            <input onkeypress="return validandoValores(event);" class='input' type="text" placeholder="Valor" id="valor" required>
+            <input onkeypress="return validandoNumeros(event);" class='input' type="text" placeholder="Conta" id="valor" required>
             <label for="senha">Digite sua senha:</label>
             <input class="input" type="password" placeholder="" id="senha" required>
-            <label for="senha">Confirmação da senha:</label>
-            <input class="input" type="password" placeholder="" id="senha2" required>
-
             <div class="form-actions">
                 <button class="button" type="reset">Limpar</button>
-                <button class="button" type="submit">Enviar</button>
+                <button class="button" type="submit">Confirmar</button>
             </div>
         </form>
     </div>
