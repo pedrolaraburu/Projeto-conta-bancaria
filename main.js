@@ -16,6 +16,10 @@ let operacao = [
     }
 ]
 
+function getConta() {
+    return dados;
+}
+
 function criandoCategorias() {
     const resultado = document.getElementById('category');
     operacao.forEach(function (entCategoria) {
@@ -26,34 +30,37 @@ function criandoCategorias() {
     });
 }
 
-function olaUsuario(){
-    var json = obterDadosLocalStorage()
-    const conteudo = document.getElementById('conteudo');
-    json.map((element) => {
-        const nomeAp = document.createElement('h2')
-        nomeAp.innerText = `Bem vindo, ${element.nome}!`
-        nomeAp.classList.add("elemento-nome")
-        conteudo.prepend(nomeAp)
-    })
-
+function realizaSaque(conta, valor){
+    if(valor > 0){
+        if(getSaldo(conta) >= valor){
+            getConta().find(elemento => elemento.conta === conta).saldo -= valor;
+            alert(`Saque realizado com sucesso!\nSaldo atual: ${getSaldo(conta)}`)
+        } else {
+            alert(`Saldo insuficiente\nSaldo atual: ${getSaldo(conta)}`)
+        }
+    } else{
+        alert("Valor de saque inferior a 0.");
+    }
 }
 
-function realizaSaque(){
-
+function realizaDeposito(conta, valor){
+    if (valor > 0){
+        getConta().find(elemento => elemento.conta === conta).saldo += valor;
+        alert(`Depósito realizado com sucesso!\nSaldo atual: ${getSaldo(conta)}`)
+    } else {
+        alert("Valor de depósito inválido")
+    }
 }
 
-function realizaDeposito(){
-
+function consultaSaldo(conta){
+    const nome = getConta().find(elemento => elemento.conta === conta).nome;
+    alert(`Olá sr(a) ${nome}, o saldo da sua conta é ${getSaldo(conta)}`);
 }
 
-function consultaSaldo(dados){
-    var json = dados;
-    json.map((element) => {
-        const saldoConta = element.saldo;
-        console.log("Saldo:" + saldoConta);
-        alert(`O saldo da sua conta é ${saldoConta}`);
-    })
+function getSaldo(conta){
+    return getConta().find(elemento => elemento.conta === conta).saldo;
 }
+
 
 function validaSenhaOp() {
     let confirmaSenha = false;
@@ -96,6 +103,7 @@ function desabilitaValor() {
     let res = document.getElementById('category').value;
     if (res === '3'){
         document.getElementById("valor").disabled = true;
+        document.getElementById("conta").disabled = false;
     } else if(res === 'Selecione a operação'){
         document.getElementById("valor").disabled = true;
         document.getElementById("conta").disabled = true;
@@ -107,11 +115,6 @@ function desabilitaValor() {
     }
 }
 
-
-function Redirect()
-{
-    window.location="/operacoes.html";
-}
 
 function validaSenha(evento){
     let retornoSenha = false;
@@ -183,14 +186,16 @@ function getDados(evento) {
             conta: String(Math.floor(1000 + Math.random() * 90000)),
             saldo: 0
         };
-        dados.push(dadosReal);
+        salvaConta(dadosReal);
         salvarDadosLocalStorage(dados)
         alert(`Sua conta foi criada com sucesso! Número da conta: ${dadosReal.conta}`)
-        alert("Redirecionado você para a página de operações");
-        setTimeout('Redirect()', 2000);
     } else {
         evento.preventDefault();
     }
+}
+
+function salvaConta(dadosR) {
+    dados.push(dadosR);
 }
 
 function getDadosOp(evento) {
@@ -200,16 +205,15 @@ function getDadosOp(evento) {
     let resRetornoCop = validaContaOp()
     let resRetornoSop = validaSenhaOp()
     const categoria = document.getElementById('category').value;
-    console.log("Categoria: " + categoria);
-    console.log(typeof(categoria))
-    console.log(resRetornoCop, resRetornoSop)
+    const valor = parseInt(document.getElementById('valor').value);
     if (resRetornoSop == true && resRetornoCop == true){
         if (categoria === '1'){
-            realizaSaque()
+            realizaSaque(resConta, valor)
         } else if (categoria === '2'){
-            realizaDeposito()
+            console.log("oi deposito");
+            realizaDeposito(resConta, valor)
         } else if (categoria === '3'){
-            consultaSaldo(dadosConta)
+            consultaSaldo(resConta)
         } else {
             evento.preventDefault()
         }
@@ -221,21 +225,9 @@ function getDadosOp(evento) {
 
 const formulario = document.getElementById('form-cadastro');
 formulario.addEventListener('submit', getDados);
-console.log(dados)
 
 document.body.onload = criandoCategorias;
 
-console.log(document.getElementById("category"))
-console.log("Obtendo dados");
-var json = obterDadosLocalStorage()
-console.log("testando");
-const dadosatu = json.map((teste) => {
-    console.log(teste.nome)
-    return {...teste}
-})
-console.log(dadosatu)
-olaUsuario()
 
-
-const formulario2 = document.getElementById('form-cadastro');
+const formulario2 = document.getElementById('form-cadastro2');
 formulario2.addEventListener('submit', getDadosOp);

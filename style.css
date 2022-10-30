@@ -50,8 +50,25 @@ footer p {
     padding: 3em;
     text-align: center;
 }
+.conteudo2 {
+    padding: 3em;
+    text-align: center;
+}
 
 .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* gap: 20px; */
+    border: 1px solid #3c4048;
+    border-radius: 10px;
+    background-color: #818896;
+    padding: 30px;
+    width: 300px;
+    margin: auto;
+}
+.form2 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -67,16 +84,36 @@ footer p {
 .form select{
     margin-bottom: 10px;
     /* align-self:flex-start; */
+    align-self: flex-end;
+}
+.form2 select{
+    margin-bottom: 10px;
+    /* align-self:flex-start; */
     align-self: center;
 }
 
+
 .form label {
+    margin-bottom:5px;
+}
+.form2 label {
     margin-bottom:5px;
 }
 
 .form input{
     margin-bottom: 10px;
     /* align-self:flex-start; */
+    align-self: center;
+}
+.form2 input{
+    margin-bottom: 10px;
+    /* align-self:flex-start; */
+    align-self: center;
+}
+
+.dois-forms {
+    display: flex;
+    flex-direction: row;
     align-self: center;
 }
 
