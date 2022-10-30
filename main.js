@@ -26,12 +26,79 @@ function criandoCategorias() {
     });
 }
 
+function olaUsuario(){
+    var json = obterDadosLocalStorage()
+    const conteudo = document.getElementById('conteudo');
+    json.map((element) => {
+        const nomeAp = document.createElement('h2')
+        nomeAp.innerText = `Bem vindo, ${element.nome}!`
+        nomeAp.classList.add("elemento-nome")
+        conteudo.prepend(nomeAp)
+    })
+
+}
+
+function realizaSaque(){
+
+}
+
+function realizaDeposito(){
+
+}
+
+function consultaSaldo(){
+
+}
+
+function validaSenhaOp() {
+    let confirmaSenha = false;
+    const res = document.getElementById('senhaOp').value;
+    var json = obterDadosLocalStorage();
+    json.map((element) => {
+        const senha = element.senha;
+        console.log(senha);
+        if (senha === res) {
+            confirmaSenha = true;
+        } else if(res === '') {
+            alert("Preencha os dados antes");
+        } else {
+            alert("Senha incorreta, tente novamente");
+            confirmaSenha = false;
+        }
+        return confirmaSenha;
+    })
+}
+
+function validaContaOp() {
+    let confirmaConta = false;
+    const res = document.getElementById('conta').value;
+    var json = obterDadosLocalStorage();
+    json.map((element) => {
+        const conta = element.conta;
+        if (conta === res) {
+            confirmaConta = true;
+        } else if(res === '') {
+            alert("Preencha os dados antes");
+        } else {
+            alert("Número de conta inválido, tente novamente...");
+            confirmaConta = false;
+        }
+        return confirmaConta;
+    })
+}
+
 function desabilitaValor() {
     let res = document.getElementById('category').value;
-    if (res === '3' || res === 'Selecione a operação'){
+    if (res === '3'){
         document.getElementById("valor").disabled = true;
+    } else if(res === 'Selecione a operação'){
+        document.getElementById("valor").disabled = true;
+        document.getElementById("conta").disabled = true;
+        document.getElementById("senhaOp").disabled = true;
     } else {
         document.getElementById("valor").disabled = false;
+        document.getElementById("conta").disabled = false;
+        document.getElementById("senhaOp").disabled = false;
     }
 }
 
@@ -87,7 +154,7 @@ const salvarDadosLocalStorage = (arrayDados) => {
 };
 
 
-const obterDicasLocalStorage = () => {
+const obterDadosLocalStorage = () => {
     const dadosLS = localStorage.getItem(STORAGE_KEY);
   
     // Valida se tem algo no local storage
@@ -113,13 +180,34 @@ function getDados(evento) {
         };
         dados.push(dadosReal);
         salvarDadosLocalStorage(dados)
-        alert(`Sua conta foi criado com sucesso! Número da conta: ${dadosReal.conta}`)
+        alert(`Sua conta foi criada com sucesso! Número da conta: ${dadosReal.conta}`)
         alert("Redirecionado você para a página de operações");
         setTimeout('Redirect()', 2000);
     } else {
         evento.preventDefault();
     }
-  }
+}
+
+function getDadosOp(evento) {
+    evento.preventDefault()
+    let resRetornoCop = validaContaOp()
+    let resRetornoSop = validaSenhaOp()
+    const categoria = document.getElementById('category').value;
+    console.log("Categoria: " + categoria);
+    console.log(typeof(categoria))
+    if (resRetornoSop == true && resRetornoCop == true){
+        if (categoria === '1'){
+            realizaSaque()
+        } else if (categoria === '2'){
+            realizaDeposito()
+        } else if (categoria === '3'){
+            consultaSaldo()
+        } else {
+            evento.preventDefault()
+        }
+    }
+    evento.preventDefault()
+}
 
 
 
@@ -130,3 +218,16 @@ console.log(dados)
 document.body.onload = criandoCategorias;
 
 console.log(document.getElementById("category"))
+console.log("Obtendo dados");
+var json = obterDadosLocalStorage()
+console.log("testando");
+const dadosatu = json.map((teste) => {
+    console.log(teste.nome)
+    return {...teste}
+})
+console.log(dadosatu)
+olaUsuario()
+
+
+const formulario2 = document.getElementById('form-cadastro');
+formulario2.addEventListener('submit', getDadosOp);

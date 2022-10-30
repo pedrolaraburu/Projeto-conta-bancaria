@@ -171,3 +171,9 @@ footer p {
     height: 35px;
     padding: 5px;
 }
+
+.elemento-nome {
+    display: flex;
+    justify-content: flex-start;
+    text-decoration: underline;
+}
