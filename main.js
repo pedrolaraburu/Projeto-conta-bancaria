@@ -46,8 +46,13 @@ function realizaDeposito(){
 
 }
 
-function consultaSaldo(){
-
+function consultaSaldo(dados){
+    var json = dados;
+    json.map((element) => {
+        const saldoConta = element.saldo;
+        console.log("Saldo:" + saldoConta);
+        alert(`O saldo da sua conta é ${saldoConta}`);
+    })
 }
 
 function validaSenhaOp() {
@@ -65,8 +70,8 @@ function validaSenhaOp() {
             alert("Senha incorreta, tente novamente");
             confirmaSenha = false;
         }
-        return confirmaSenha;
     })
+    return confirmaSenha;
 }
 
 function validaContaOp() {
@@ -83,8 +88,8 @@ function validaContaOp() {
             alert("Número de conta inválido, tente novamente...");
             confirmaConta = false;
         }
-        return confirmaConta;
     })
+    return confirmaConta;
 }
 
 function desabilitaValor() {
@@ -189,19 +194,22 @@ function getDados(evento) {
 }
 
 function getDadosOp(evento) {
+    var dadosConta = obterDadosLocalStorage();
     evento.preventDefault()
+    const resConta = document.getElementById('conta').value;
     let resRetornoCop = validaContaOp()
     let resRetornoSop = validaSenhaOp()
     const categoria = document.getElementById('category').value;
     console.log("Categoria: " + categoria);
     console.log(typeof(categoria))
+    console.log(resRetornoCop, resRetornoSop)
     if (resRetornoSop == true && resRetornoCop == true){
         if (categoria === '1'){
             realizaSaque()
         } else if (categoria === '2'){
             realizaDeposito()
         } else if (categoria === '3'){
-            consultaSaldo()
+            consultaSaldo(dadosConta)
         } else {
             evento.preventDefault()
         }
